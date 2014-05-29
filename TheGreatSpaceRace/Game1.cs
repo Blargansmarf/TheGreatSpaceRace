@@ -19,6 +19,15 @@ namespace TheGreatSpaceRace
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        MouseState prevMouseState, currMouseState;
+        KeyboardState prevKeyState, currKeyState;
+        GamePadState prevGamePadState, currGamePadState;
+
+        Vector2 translation;
+        Vector2 startLoc;
+
+        Texture2D playerTexture;
+
         public Game1()
             : base()
         {
@@ -34,7 +43,7 @@ namespace TheGreatSpaceRace
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            translation = new Vector2();
 
             base.Initialize();
         }
@@ -47,6 +56,8 @@ namespace TheGreatSpaceRace
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            playerTexture = Content.Load<Texture2D>("WhiteSquare.png");
 
             // TODO: use this.Content to load your game content here
         }
@@ -67,11 +78,17 @@ namespace TheGreatSpaceRace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            currMouseState = Mouse.GetState();
+            currKeyState = Keyboard.GetState();
+            currGamePadState = GamePad.GetState(PlayerIndex.One);
 
-            // TODO: Add your update logic here
-            //test change
+            ProcessMouse();
+            ProcessKeyboard();
+            ProcessGamePad();
+
+            prevMouseState = currMouseState;
+            prevKeyState = currKeyState;
+            prevGamePadState = currGamePadState;
 
             base.Update(gameTime);
         }
@@ -84,9 +101,28 @@ namespace TheGreatSpaceRace
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, Matrix.CreateTranslation(translation.X, translation.Y, 0));
+
+            spriteBatch.Draw();
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void ProcessMouse()
+        {
+
+        }
+
+        private void ProcessKeyboard()
+        {
+
+        }
+
+        private void ProcessGamePad()
+        {
+
         }
     }
 }
